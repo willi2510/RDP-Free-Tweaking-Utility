@@ -31,7 +31,7 @@ if '%choice%'=='2' goto Continue
 :: Creating Restore Point
 echo Creating Restore Point
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore" /v "SystemRestorePointCreationFrequency" /t REG_DWORD /d "0" /f >> APB_Log.txt
-powershell -ExecutionPolicy Bypass -Command "Checkpoint-Computer -Description 'Ancels Performance Batch' -RestorePointType 'MODIFY_SETTINGS'" >> APB_Log.txt
+powershell -ExecutionPolicy Bypass -Command "Checkpoint-Computer -Description 'RDP's Performance Batch' -RestorePointType 'MODIFY_SETTINGS'" >> APB_Log.txt
 
 :Continue
 cls
