@@ -1,4 +1,13 @@
 @echo off
+REM Developed By DjangoCodes 
+REM Django's Discord: https://discord.gg/H567BQCYzJ
+REM Django's GitHub: https://github.com/DjangoTweaks
+
+REM Credits to- 
+REM Ancel, Zusier, OptiX, Melody, DaddyMadu
+
+if not "%1" == "max" start /MAX cmd /c %0 max & exit/b
+
 :: Version #
 title RDP Tweaks Free Tweaking Utility
 Set Version=1.0
@@ -10,7 +19,7 @@ setlocal enabledelayedexpansion
 powershell "Set-ExecutionPolicy Unrestricted"
 
 :: Enable ANSI Escape Sequences
-reg add "HKCU\CONSOLE" /v "VirtualTerminalLevel" /t REG_DWORD /d "1" /f >> APB_Log.txt
+reg add "HKCU\CONSOLE" /v "VirtualTerminalLevel" /t REG_DWORD /d "1" /f
 
 set z=[7m
 set i=[1m
@@ -30,14 +39,14 @@ if '%choice%'=='2' goto Continue
 :RestorePoint
 :: Creating Restore Point
 echo Creating Restore Point
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore" /v "SystemRestorePointCreationFrequency" /t REG_DWORD /d "0" /f >> APB_Log.txt
-powershell -ExecutionPolicy Bypass -Command "Checkpoint-Computer -Description 'RDP's Performance Batch' -RestorePointType 'MODIFY_SETTINGS'" >> APB_Log.txt
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore" /v "SystemRestorePointCreationFrequency" /t REG_DWORD /d "0" /f 
+powershell -ExecutionPolicy Bypass -Command "Checkpoint-Computer -Description 'RDP's Performance Batch' -RestorePointType 'MODIFY_SETTINGS'" 
 
 :Continue
 cls
 
 :: Disable UAC
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableLUA" /t REG_DWORD /d "0" /f >> APB_Log.txt
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableLUA" /t REG_DWORD /d "0" /f 
 
 echo Checking for Administrative Privileges...
 timeout /t 3 /nobreak > NUL
@@ -65,6 +74,7 @@ if '%errorlevel%' NEQ '0' (
     CD /D "%~dp0"
 
 :: Main Menu
+
 :Menu
 cls
 chcp 65001 >nul 2>&1
@@ -110,6 +120,20 @@ if '%choice%'=='3' goto Menu
 goto DefaultChoice
 
 :WindowsBasic
+
+
+echo. [101;41mConfigure Win32 Priority?:[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice=  [101;42mY / N:[0m  
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "38" /f 
+goto :next
+
 
 echo. [101;41mDisable Windows Search?:[0m
 echo. Press "Y" to apply.
@@ -452,7 +476,7 @@ echo. Press "N" to skip.
 echo.
 SET /P choice=  [101;42mY / N:[0m  
 IF /I "%choice%"=="Y" goto apply
-IF /I "%choice%"=="N" goto optizfinish
+IF /I "%choice%"=="N" goto next
 echo.
 :apply
 echo This may take a moment, please be patient.
@@ -541,7 +565,149 @@ if '%choice%'=='3' goto Menu
 goto DefaultChoice
 
 :PowerBasic
-cls
+
+
+:next
+echo. [101;41mDisable Energy Logging? :[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice=  [101;42mY / N:[0m  
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\TaggedEnergy" /v "DisableTaggedEnergyLogging" /t REG_DWORD /d "1" /f 
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\TaggedEnergy" /v "TelemetryMaxApplication" /t REG_DWORD /d "0" /f 
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\TaggedEnergy" /v "TelemetryMaxTagPerApplication" /t REG_DWORD /d "0" /f 
+goto :next
+
+
+:next
+echo. [101;41mDisable Power Throttling? :[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice=  [101;42mY / N:[0m  
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager" /v "CoalescingTimerInterval" /t REG_DWORD /d "0" /f 
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "CoalescingTimerInterval" /t REG_DWORD /d "0" /f 
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "CoalescingTimerInterval" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" /v "CoalescingTimerInterval" /t REG_DWORD /d "0" /f 
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Executive" /v "CoalescingTimerInterval" /t REG_DWORD /d "0" /f 
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\ModernSleep" /v "CoalescingTimerInterval" /t REG_DWORD /d "0" /f 
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "CoalescingTimerInterval" /t REG_DWORD /d "0" /f 
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "PlatformAoAcOverride" /t REG_DWORD /d "0" /f 
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "EnergyEstimationEnabled" /t REG_DWORD /d "0" /f 
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "EventProcessorEnabled" /t REG_DWORD /d "0" /f 
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "CsEnabled" /t REG_DWORD /d "0" /f 
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling" /v "PowerThrottlingOff" /t REG_DWORD /d "1" /f 
+goto :next
+
+
+:next
+echo. [101;41mDisable Hibernation? :[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice=  [101;42mY / N:[0m  
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+powercfg /h off
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "HibernateEnabled" /t REG_DWORD /d "0" /f 
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "SleepReliabilityDetailedDiagnostics" /t REG_DWORD /d "0" /f 
+goto :next
+
+
+:next
+echo. [101;41mDisable Memory Compression? :[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice=  [101;42mY / N:[0m  
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+REM echo Disabling Memory Compression
+PowerShell -Command "Disable-MMAgent -MemoryCompression" 
+goto :next
+
+
+:next
+echo. [101;41mDisable P States? :[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice=  [101;42mY / N:[0m  
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+:: Disable P-States
+echo Disabling P-States
+for /f %%i in ('wmic path Win32_VideoController get PNPDeviceID^| findstr /L "PCI\VEN_"') do (
+	for /f "tokens=3" %%a in ('reg query "HKLM\SYSTEM\ControlSet001\Enum\%%i" /v "Driver"') do (
+		for /f %%i in ('echo %%a ^| findstr "{"') do (
+		     reg add "HKLM\SYSTEM\CurrentControlSet\Control\Class\%%i" /v "DisableDynamicPstate" /t REG_DWORD /d "1" /f 
+                   )
+                )
+             )  
+goto :next
+
+
+
+:next
+echo. [101;41mDelete Default Power Plans? :[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice=  [101;42mY / N:[0m  
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+:: Delete Balanced Power Plan
+powercfg -delete 381b4222-f694-41f0-9685-ff5bb260df2e 
+
+:: Delete Power Saver Power Plan
+powercfg -delete a1841308-3541-4fab-bc81-f71556f20b4a 
+
+:: Delete High Performance Power Plan
+powercfg -delete 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c 
+
+:: Delete Ultimate Performance Power Plan
+powercfg -delete e9a42b02-d5df-448d-aa00-03f14749eb61
+
+:: Delete AMD Ryzen Balanced Power Plan
+powercfg -delete 9897998c-92de-4669-853f-b7cd3ecb2790 
+
+goto :next
+
+:next
+echo. [101;41mImport Power Plan? :[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice=  [101;42mY / N:[0m  
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto Menu
+echo.
+:apply
+curl -g -k -L -# -o "C:\Bitsum-Highest-Performance.pow" "https://raw.githubusercontent.com/DaddyMadu/Windows10GamingFocus/refs/heads/master/Bitsum-Highest-Performance.pow" 
+powercfg -import "C:\Bitsum-Highest-Performance.pow" 7cf1a131-ed6b-4bf0-8bfe-02086c84484d 
+powercfg -setactive 7cf1a131-ed6b-4bf0-8bfe-02086c84484d 
+start powercfg.cpl
+
+
+goto :Menu
+
+
 
 
 
@@ -559,6 +725,56 @@ if '%choice%'=='2' goto PremiumOnly
 if '%choice%'=='3' goto Menu
 
 goto DefaultChoice
+
+
+:NetworkBasic
+
+:next
+echo. [101;41mDisable Nagle's Algorithm?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice=  [101;42mY / N:[0m  
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+echo Disabling Nagle's Algorithm
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces" /v "TcpAckFrequency" /t REG_DWORD /d "1" /f 
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces" /v "TCPNoDelay" /t REG_DWORD /d "1" /f 
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces" /v "TcpDelAckTicks" /t REG_DWORD /d "0" /f 
+echo.
+echo. [101;41mDisabled Nagle's Algorithm.[0m
+
+goto :next
+
+
+:next
+echo. [101;41mReset Internet?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice=  [101;42mY / N:[0m  
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+ipconfig /release
+ipconfig /renew
+ipconfig /flushdns
+netsh int ip reset
+netsh int ipv4 reset
+netsh int ipv6 reset
+netsh int tcp reset
+netsh winsock reset
+netsh advfirewall reset
+netsh branchcache reset
+netsh http flush logbuffer
+echo.
+echo. [101;41mNetwork Reset Successfully.[0m
+
+goto :next
+
 
 :NetworkBasic
 :next
@@ -587,7 +803,7 @@ echo. Press "N" to skip.
 echo.
 SET /P choice=  [101;42mY / N:[0m  
 IF /I "%choice%"=="Y" goto apply
-IF /I "%choice%"=="N" goto next
+IF /I "%choice%"=="N" goto Menu
 echo.
 :apply
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\SmsRouter" /v "Start" /t REG_DWORD /d "4" /f
@@ -614,7 +830,35 @@ if '%choice%'=='3' goto Menu
 goto DefaultChoice
 
 :CleanBasic
+echo Cleaning PC...
+del /s /f /q c:\windows\temp. 
+del /s /f /q C:\WINDOWS\Prefetch 
+del /s /f /q %temp%. 
+del /s /f /q %systemdrive%\*.tmp 
+del /s /f /q %systemdrive%\*._mp 
+del /s /f /q %systemdrive%\*.log 
+del /s /f /q %systemdrive%\*.gid 
+del /s /f /q %systemdrive%\*.chk 
+del /s /f /q %systemdrive%\*.old 
+del /s /f /q %systemdrive%\recycled\*.* 
+del /s /f /q %systemdrive%\$Recycle.Bin\*.* 
+del /s /f /q %windir%\*.bak 
+del /s /f /q %windir%\prefetch\*.* 
+del /s /f /q %LocalAppData%\Microsoft\Windows\Explorer\thumbcache_*.db 
+del /s /f /q %LocalAppData%\Microsoft\Windows\Explorer\*.db 
+del /f /q %SystemRoot%\Logs\CBS\CBS.log 
+del /f /q %SystemRoot%\Logs\DISM\DISM.log 
+deltree /y c:\windows\tempor~1 
+deltree /y c:\windows\temp 
+deltree /y c:\windows\tmp 
+deltree /y c:\windows\ff*.tmp 
+deltree /y c:\windows\history 
+deltree /y c:\windows\cookies 
+deltree /y c:\windows\recent 
+deltree /y c:\windows\spool\printers 
 cls
+timeout /t 5 /nobreak > NUL
+goto Menu
 
 :DebloatTweaks
 cls
@@ -809,5 +1053,5 @@ echo 			%w%██████%t%╔╝%w%██║  ██%t%║%w%████�
 echo 			%w%██╔══██%t%╗%w%██║  ██%t%║%w%██%t%╔═══╝     %w%██%t%╔══╝  %w%██╔══██%t%╗%w%██%t%╔══╝  %w%██%t%╔══╝         %w%██%t%║   %w%██║███╗██%t%║%w%██%t%╔══╝  %w%██╔══██%t%║%w%██╔═██%t%╗ %w%██%t%║%w%██║╚██╗██%t%║%w%██║   ██%t%║    %w%██║   ██%t%║   %w%██%t%║   %w%██%t%║%w%██%t%║     %w%██%t%║   %w%██%t%║     ╚%w%██╔╝  
 echo 			%w%██║  ██%t%║%w%██████%t%╔╝%w%██%t%║         %w%██%t%║     %w%██║  ██%t%║%w%███████%t%╗%w%███████%t%╗       %w%██%t%║   ╚%w%███╔███%t%╔╝%w%███████%t%╗%w%██║  ██%t%║%w%██║  ██%t%╗%w%██%t%║%w%██║ ╚████%t%║╚%w%██████%t%╔╝    ╚%w%██████%t%╔╝   %w%██%t%║   %w%██%t%║%w%███████%t%╗%w%██%t%║   %w%██%t%║      %w%██║   
 echo 			╚═╝  ╚═╝╚═%t%════╝ ╚═╝         ╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝       ╚═╝    ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝      ╚═════╝    ╚═╝   ╚═╝╚══════╝╚═╝   ╚═╝      ╚═╝                                                                                                                                                                                                                                                                                                                                           
-echo[																											         		      %w%Version: %Version%%t%
+echo[																											         																      %w%Version: %Version%%t%
 echo[
