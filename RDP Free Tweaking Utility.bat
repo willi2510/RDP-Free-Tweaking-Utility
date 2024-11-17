@@ -1,7 +1,7 @@
 @echo off
 REM Developed By DjangoCodes 
 REM Django's Discord: https://discord.gg/H567BQCYzJ
-REM Django's GitHub: https://github.com/DjangoTweaks
+REM Django's GitHub (Drop A Follow!): https://github.com/DjangoTweaks
 
 REM Credits to- 
 REM Ancel, Zusier, OptiX, Melody, DaddyMadu
@@ -39,8 +39,7 @@ if '%choice%'=='2' goto Continue
 :RestorePoint
 :: Creating Restore Point
 echo Creating Restore Point
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore" /v "SystemRestorePointCreationFrequency" /t REG_DWORD /d "0" /f 
-powershell -ExecutionPolicy Bypass -Command "Checkpoint-Computer -Description 'RDP's Performance Batch' -RestorePointType 'MODIFY_SETTINGS'" 
+powershell "Checkpoint-Computer -Description 'Before RDP Tweaks'
 
 :Continue
 cls
@@ -106,7 +105,24 @@ goto DefaultChoice
 
 :WindowsTweaks
 cls
-call :Logo
+REM call :WindowLogos
+set c=[31m
+set t=[0m
+set w=[97m
+set y=[0m
+set u=[4m
+set q=[0m
+echo[
+echo[
+echo 							%w%██╗    ██╗██╗███╗   ██╗██████╗  ██████╗ ██╗    ██╗███████╗    ████████╗██╗    ██╗███████╗ █████╗ ██╗  ██╗███████╗%t%
+echo 							%w%██║    ██║██║████╗  ██║██╔══██╗██╔═══██╗██║    ██║██╔════╝    ╚══██╔══╝██║    ██║██╔════╝██╔══██╗██║ ██╔╝██╔════╝%t%
+echo 							%w%██║ █╗ ██║██║██╔██╗ ██║██║  ██║██║   ██║██║ █╗ ██║███████╗       ██║   ██║ █╗ ██║█████╗  ███████║█████╔╝ ███████╗%t%
+echo 							%w%██║███╗██║██║██║╚██╗██║██║  ██║██║   ██║██║███╗██║╚════██║       ██║   ██║███╗██║██╔══╝  ██╔══██║██╔═██╗ ╚════██║%t%
+echo 							%w%╚███╔███╔╝██║██║ ╚████║██████╔╝╚██████╔╝╚███╔███╔╝███████║       ██║   ╚███╔███╔╝███████╗██║  ██║██║  ██╗███████║%t%
+echo 							%w% ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚═════╝  ╚═════╝  ╚══╝╚══╝ ╚══════╝       ╚═╝    ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝%t%
+echo[
+echo[                                                                                                                  
+echo[
 echo.
 echo		            		       				     %w%[%y% %c%%u%1%q%%t% %w%]%y% %c%Windows Basic%t%                 %w%[%y% %c%%u%2%q% %t%%w%]%y% %c%Windows Advanced%t%                  %w%[%y% %c%%u%3%q% %t%%w%]%y% %c%Home%t%
 echo %w%Enter Your Choice Here:%t% 
@@ -121,7 +137,587 @@ goto DefaultChoice
 
 :WindowsBasic
 
+:next
+echo. [101;41mWould you like to disable the activity feed?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
 
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Feeds" /v "EnableFeeds" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft" /v "AllowNewsAndInterests" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "EnableActivityFeed" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\Control Panel\International\User Profile" /v "HttpAcceptLanguageOptOut" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v "Enabled" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\Software\Policies\Microsoft\Windows\System" /v "EnableActivityFeed" /t REG_DWORD /d "0" /f
+
+goto :next
+
+:next
+echo. [101;41mWould you like to disable autologgers?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AppModel" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Cellcore" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Circular Kernel Context Logger" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\CloudExperienceHostOobe" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DataMarket" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderApiLogger" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DefenderAuditLogger" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DiagLog" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\HolographicDevice" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\iclsClient" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\iclsProxy" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\LwtNetLog" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Mellanox-Kernel" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Microsoft-Windows-AssignedAccess-Trace" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Microsoft-Windows-Setup" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\NBSMBLOGGER" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\PEAuthLog" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\RdrLog" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\ReadyBoot" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SetupPlatform" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SetupPlatformTel" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SocketHeciServer" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SpoolerLogger" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SQMLogger" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\TCPIPLOGGER" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\TileStore" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Tpm" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\TPMProvisioningService" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\UBPM" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WdiContextLog" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WFP-IPsec Trace" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiDriverIHVSession" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiDriverIHVSessionRepro" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiSession" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WinPhoneCritical" /v "Start" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WUDF" /v "LogEnabling" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WUDF" /v "LogLevel" /t REG_DWORD /d "0" /f  
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent" /v "DisableThirdPartySuggestions" /t REG_DWORD /d "1" /f 
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent" /v "DisableWindowsConsumerFeatures" /t REG_DWORD /d "1" /f 
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Lsa\Credssp" /v "DebugLogLevel" /t REG_DWORD /d "0" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to disable automatic maintenance?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance" /v "MaintenanceDisabled" /t REG_DWORD /d "1" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to disable background apps?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "HKU\!USER_SID!\SOFTWARE\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" /v "GlobalUserDisabled" /t REG_DWORD /d "1" /f 
+Reg.exe add "HKU\!USER_SID!\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" /v "BackgroundAppGlobalToggle" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\bam" /v "Start" /t REG_DWORD /d "4" /f 
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\dam" /v "Start" /t REG_DWORD /d "4" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to disable Cortana?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "AllowCortana" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "AllowCloudSearch" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "AllowCortanaAboveLock" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "AllowSearchToUseLocation" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "ConnectedSearchUseWeb" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "ConnectedSearchUseWebOverMeteredConnections" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "DisablegWebSearch" /t REG_DWORD /d "0" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to disable EEE (Energy Efficient Ethernet)?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "%%n" /v "AutoPowerSaveModeEnabled" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "DisabledelayedPowerUp" /t REG_SZ /d "2" /f 
+Reg.exe add "%%n" /v "AutoDisablingGigabit" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "EnableGreenEthernet" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "EnableSavePowerNow" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "EnablePowerManagement" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "NicAutoPowerSaver" /t REG_SZ /d "2" /f
+Reg.exe add "%%n" /v "PowerDownPll" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "PowerSavingMode" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "ReduceSpeedOnPowerDown" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "S5NicKeepOverrideMacAddrV2" /t REG_SZ /d "0" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to disable flow control?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "%%n" /v "*FlowControl" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "FlowControlCap" /t REG_SZ /d "0" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to disable GameDVR?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "HKCU\Software\Microsoft\GameBar" /v "UseNexusForGameBarEnabled" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\Software\Microsoft\GameBar" /v "GameDVR_Enabled" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR" /v "AppCaptureEnabled" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR" /v "AudioCaptureEnabled" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR" /v "CursorCaptureEnabled" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR" /v "HistoricalCaptureEnabled" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\System\GameConfigStore" /v "GameDVR_Enabled" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\Software\Policies\Microsoft\Windows\GameDVR" /v "AllowgameDVR" /t REG_DWORD /d "0" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to disable Giga Lite?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "%%n" /v "GigaLite" /t REG_SZ /d "0" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to disable Jumbo Frame Packet?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "%%n" /v "JumboPacket" /t REG_SZ /d "1514" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to disable notifications?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\PushNotifications" /v "ToastEnabled" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Notifications\Settings" /v "NOC_GLOBAL_SETTING_ALLOW_NOTIFICATION_SOUND" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Notifications\Settings" /v "NOC_GLOBAL_SETTING_ALLOW_CRITICAL_TOASTS_ABOVE_LOCK" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Notifications\Settings\QuietHours" /v "Enabled" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Notifications\Settings\windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel" /v  
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.AutoPlay" /v "Enabled" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.LowDisk" /v "Enabled" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.Print.Notification" /v "Enabled" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance" /v "Enabled" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.WiFiNetworkManager" /v "Enabled" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "DisableNotificationCenter" /t REG_DWORD /d "1" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to disable Office Telemetry?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "HKCU\Software\Microsoft\Office\Common\ClientTelemetry" /v "DisableTelemetry" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\Common" /v "sendcustomerdata" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\Common\Feedback" /v "Enabled" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\Common\Feedback" /v "includescreenshot" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\Outlook\Options\Mail" /v "EnableLogging" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\Word\Options" /v "EnableLogging" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\Common\ClientTelemetry" /v "SendTelemetry" /t REG_DWORD /d "3" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\Common" /v "qmEnable" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\Common" /v "updatereliabilitydata" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\Common\General" /v "shownfirstrunoptin" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\Common\General" /v "skydrivesigninoption" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\Common\ptwatson" /v "ptwoptin" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\Firstrun" /v "Disablemovie" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\OSM" /v "Enablelogging" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\OSM" /v "EnableUpload" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\OSM" /v "EnableFileObfuscation" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\OSM\preventedapplications" /v "accesssolution" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\OSM\preventedapplications" /v "olksolution" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\OSM\preventedapplications" /v "onenotesolution" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\OSM\preventedapplications" /v "pptsolution" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\OSM\preventedapplications" /v "projectsolution" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\OSM\preventedapplications" /v "publishersolution" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\OSM\preventedapplications" /v "visiosolution" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\OSM\preventedapplications" /v "wdsolution" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\OSM\preventedapplications" /v "xlsolution" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\OSM\preventedsolutiontypes" /v "agave" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\OSM\preventedsolutiontypes" /v "appaddins" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\OSM\preventedsolutiontypes" /v "comaddins" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\OSM\preventedsolutiontypes" /v "documentfiles" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\Software\Microsoft\Office\16.0\OSM\preventedsolutiontypes" /v "templatefiles" /t REG_DWORD /d "1" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to disable popups, balloon tips, and messages?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "DisallowShaking" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "EnableBalloonTips" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowSyncProviderNotifications" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userNotificationListener" /v "Value" /t REG_SZ /d "Deny" /f
+Reg.exe add "HKLM\Software\Policies\Microsoft\Windows\AdvertisingInfo" /v "DisabledByGroupPolicy" /t REG_DWORD /d "1" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to disable printing and maps services?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\Spooler" /v "Start" /t REG_DWORD /d "4" /f
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\PrintNotify" /v "Start" /t REG_DWORD /d "4" /f
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\MapsBroker" /v "Start" /t REG_DWORD /d "4" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to disable shared experiences?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CDP" /v "CdpSessionUserAuthzPolicy" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CDP" /v "NearShareChannelUserAuthzPolicy" /t REG_DWORD /d "0" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to disable telemetry through the registry?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Device Metadata" /v "PreventDeviceMetadataFromNetwork" /t REG_DWORD /d "1" /f
+Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" /v "AllowTelemetry" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\SOFTWARE\Microsoft\InputPersonalization" /v "RestrictImplicitInkCollection" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\SOFTWARE\Microsoft\InputPersonalization" /v "RestrictImplicitTextCollection" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sensor\Permissions\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}" /v "SensorPermissionState" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sensor\Overrides\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}" /v "SensorPermissionState" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WUDF" /v "LogEnable" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WUDF" /v "LogLevel" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "AllowTelemetry" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "DoNotShowFeedbackNotifications" /t REG_DWORD /d "1" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "AllowCommercialDataPipeline" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "AllowDeviceNameInTelemetry" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "LimitEnhancedDiagnosticDataWindowsAnalytics" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "MicrosoftEdgeDataOptIn" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Siuf\Rules" /v "NumberOfSIUFInPeriod" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Siuf\Rules" /v "PeriodInNanoSeconds" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\SOFTWARE\Policies\Microsoft\Assistance\Client\1.0" /v "NoExplicitFeedback" /t REG_DWORD /d "1" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Assistance\Client\1.0" /v "NoActiveHelp" /t REG_DWORD /d "1" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisableInventory" /t REG_DWORD /d "1" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "AITEnable" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat" /v "DisableUAR" /t REG_DWORD /d "1" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\TabletPC" /v "PreventHandwritingDataSharing" /t REG_DWORD /d "1" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\TabletPC" /v "DoSvc" /t REG_DWORD /d "3" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors" /v "DisableLocation" /t REG_DWORD /d "1" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors" /v "DisableLocationScripting" /t REG_DWORD /d "1" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors" /v "DisableSensors" /t REG_DWORD /d "1" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors" /v "DisableWindowsLocationProvider" /t REG_DWORD /d "1" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "PublishUserActivities" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "EnableActivityFeed" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "UploadUserActivities" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\SQMClient\Windows" /v "CEIPEnable" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Microsoft\SQMClient\Reliability" /v "CEIPEnable" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Microsoft\SQMClient\Reliability" /v "SqmLoggerRunning" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Microsoft\SQMClient\Windows" /v "CEIPEnable" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Microsoft\SQMClient\Windows" /v "DisableOptinExperience" /t REG_DWORD /d "1" /f
+Reg.exe add "HKLM\SOFTWARE\Microsoft\SQMClient\Windows" /v "SqmLoggerRunning" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Microsoft\SQMClient\IE" /v "SqmLoggerRunning" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\HandwritingErrorReports" /v "PreventHandwritingErrorReports" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\SOFTWARE\Microsoft\MediaPlayer\Preferences" /v "UsageTracking" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent" /v "DisableSoftLanding" /t REG_DWORD /d "1" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Peernet" /v "Disabled" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config" /v DODownloadMode /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting" /v value /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\SOFTWARE\Microsoft\InputPersonalization\TrainedDataStore" /v "HarvestContacts" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v "Enabled" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo" /v "DisabledByGroupPolicy" /t REG_DWORD /d "1" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\MRT" /v "DontOfferThroughWUAU" /t REG_DWORD /d "1" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Biometrics" /v "Enabled" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\dmwappushservice" /v "Start" /t REG_DWORD /d "4" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to disable tracking and diagnostics?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Privacy" /v "TailoredExperiencesWithDiagnosticDataEnabled" /t REG_DWORD /d "0" /f
+Reg.exe add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack" /v "ShowedToastAtLevel" /t REG_DWORD /d "1" /f
+Reg.exe add "HKEY_CURRENT_USER\Software\Microsoft\Input\TIPC" /v "Enabled" /t REG_DWORD /d "0" /f
+Reg.exe add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System" /v "UploadUserActivities" /t REG_DWORD /d "0" /f
+Reg.exe add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System" /v "PublishUserActivities" /t REG_DWORD /d "0" /f
+Reg.exe add "HKEY_CURRENT_USER\Control Panel\International\User Profile" /v "HttpAcceptLanguageOptOut" /t REG_DWORD /d "1" /f
+Reg.exe add "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments" /v "SaveZoneInformation" /t REG_DWORD /d "1" /f
+Reg.exe add "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Diagnostics\Performance" /v "DisablediagnosticTracing" /t REG_DWORD /d "1" /f >nul 2>&1 
+Reg.exe add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\WDI\{9c5a40da-b965-4fc3-8781-88dd50a6299d}" /v "ScenarioExecutionEnabled" /t REG_DWORD /d "0" /f
+schtasks /change /tn "\Microsoft\Windows\Application Experience\StartupAppTask" /Disable
+schtasks /end /tn "\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector"
+schtasks /change /tn "\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" /Disable
+schtasks /end /tn "\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticResolver"
+schtasks /change /tn "\Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticResolver" /Disable
+schtasks /end /tn "\Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem"
+schtasks /change /tn "\Microsoft\Windows\Power Efficiency Diagnostics\AnalyzeSystem" /Disable
+goto :next
+
+:next
+echo. [101;41mWould you like to disable transparency?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "EnablingTransparency" /t REG_DWORD /d "0" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to disable WakeOns?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "%%n" /v "EnableWakeOnLan" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "WakeOnDisconnect" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "*WakeOnMagicPacket" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "S5WakeOnLan" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "*WakeOnPattern" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "WakeOnLink" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "WolShutdownLinkSpeed" /t REG_SZ /d "2" /f
+goto :next
+
+REM Potentially Feature Breaking
+REM :next
+REM echo. [101;41mWould you like to disable Windows Error Reporting?[0m
+REM echo. Press "Y" to apply.
+REM echo. Press "N" to skip.
+REM echo.
+REM SET /P choice= [101;42mY / N:[0m
+REM IF /I "%choice%"=="Y" goto apply
+REM IF /I "%choice%"=="N" goto next
+REM echo.
+REM :apply
+REM Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v "Disabled" /t REG_DWORD /d "1" /f 
+REM Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v "DoReport" /t REG_DWORD /d "0" /f 
+REM Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v "LoggingDisabled" /t REG_DWORD /d "1" /f 
+REM Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\PCHealth\ErrorReporting" /v "DoReport" /t REG_DWORD /d "0" /f 
+REM Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting" /v "Disabled" /t REG_DWORD /d "1" /f
+REM goto :next
+
+:next
+echo. [101;41mWould you like to disable Windows Insider Experimentation?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\System" /v "AllowExperimentation" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\System\AllowExperimentation" /v "value" /t REG_DWORD /d "0" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to enable energy logging and power telemetry?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\TaggedEnergy" /v "DisableTaggedEnergyLogging" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\TaggedEnergy" /v "TelemetryMaxApplication" /t REG_DWORD /d "1" /f 
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\TaggedEnergy" /v "TelemetryMaxTagPerApplication" /t REG_DWORD /d "1" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to optimize Windows Search?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search" /v "BingSearchEnabled" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\Software\Microsoft\InputPersonalization" /v "RestrictImplicitInkCollection" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\Software\Microsoft\InputPersonalization" /v "RestrictImplicitTextCollection" /t REG_DWORD /d "1" /f
+Reg.exe add "HKCU\Software\Microsoft\Personalization\Settings" /v "AcceptedPrivacyPolicy" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "CortanaCapabilities" /t REG_SZ /d "" /f
+Reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "IsAssignedAccess" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "IsWindowsHelloActive" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "AllowSearchToUseLocation" /t REG_DWORD /d 0 /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "ConnectedSearchPrivacy" /t REG_DWORD /d 3 /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "ConnectedSearchSafeSearch" /t REG_DWORD /d 3 /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "ConnectedSearchUseWeb" /t REG_DWORD /d 0 /f
+Reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "ConnectedSearchUseWebOverMeteredConnections" /t REG_DWORD /d 0 /f
+Reg.exe add "HKLM\Software\Microsoft\PolicyManager\default\Experience\AllowCortana" /v "value" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\Software\Policies\Microsoft\SearchCompanion" /v "DisableContentFileUpdates" /t REG_DWORD /d "1" /f
+Reg.exe add "HKLM\Software\Policies\Microsoft\Windows\Windows Search" /v "AllowCloudSearch" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\Software\Policies\Microsoft\Windows\Windows Search" /v "AllowCortanaAboveLock" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\Software\Policies\Microsoft\Windows\Windows Search" /v "AllowSearchToUseLocation" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\Software\Policies\Microsoft\Windows\Windows Search" /v "ConnectedSearchPrivacy" /t REG_DWORD /d "3" /f
+Reg.exe add "HKLM\Software\Policies\Microsoft\Windows\Windows Search" /v "ConnectedSearchUseWeb" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\Software\Policies\Microsoft\Windows\Windows Search" /v "ConnectedSearchUseWebOverMeteredConnections" /t REG_DWORD /d "0" /f
+Reg.exe add "HKLM\Software\Policies\Microsoft\Windows\Windows Search" /v "DisableWebSearch" /t REG_DWORD /d "1" /f
+Reg.exe add "HKLM\Software\Policies\Microsoft\Windows\Windows Search" /v "DoNotUseWebResults" /t REG_DWORD /d "1" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to stop adapter from sending notifications?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "%%n" /v "FatChannelIntolerant" /t REG_SZ /d "0" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to set DNS priorities?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" /v "LocalPriority" /t REG_DWORD /d "4" /f
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" /v "HostsPriority" /t REG_DWORD /d "5" /f
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" /v "DnsPriority" /t REG_DWORD /d "6" /f
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\ServiceProvider" /v "NetbtPriority" /t REG_DWORD /d "7" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to set FSE behavior mode?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "HKCU\SYSTEM\GameConfigStore" /v "GameDVR_DSEBehavior" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\SYSTEM\GameConfigStore" /v "GameDVR_FSEBehaviorMode" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\SYSTEM\GameConfigStore" /v "GameDVR_EFSEFeatureFlags" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\SYSTEM\GameConfigStore" /v "GameDVR_DXGIHonorFSEWindowsCompatible" /t REG_DWORD /d "0" /f
+Reg.exe add "HKCU\SYSTEM\GameConfigStore" /v "GameDVR_HonorUserFSEBehaviorMode" /t REG_DWORD /d "1" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to stop reinstalling preinstalled apps?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "PreInstalledAppsEnabled" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SilentInstalledAppsEnabled" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "OemPreInstalledAppsEnabled" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "ContentDeliveryAllowed" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContentEnabled" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "PreInstalledAppsEverEnabled" /t REG_DWORD /d "0" /f
+goto :next
+
+:next
 echo. [101;41mConfigure Win32 Priority?:[0m
 echo. Press "Y" to apply.
 echo. Press "N" to skip.
@@ -450,24 +1046,25 @@ echo. [101;41mHyper-V has been disabled.[0m
 
 goto :next
 
-:next
-echo. [101;41mDisable Windows Error Reporting and Windows Push Notifications?:[0m
-echo Will break Network settings in Immersive Control Panel
-echo. Press "Y" to apply.
-echo. Press "N" to skip.
-echo.
-SET /P choice=  [101;42mY / N:[0m  
-IF /I "%choice%"=="Y" goto apply
-IF /I "%choice%"=="N" goto next
-echo.
-:apply
-reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WerSvc" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WpnService" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WpnUserService" /v "Start" /t REG_DWORD /d "4" /f
-echo.
-echo. [101;41mWindows Error Reporting and Push Notifications have been disabled.[0m
+REM Potentially Feature Breaking
+REM :next
+REM echo. [101;41mDisable Windows Error Reporting and Windows Push Notifications?:[0m
+REM echo Will break Network settings in Immersive Control Panel
+REM echo. Press "Y" to apply.
+REM echo. Press "N" to skip.
+REM echo.
+REM SET /P choice=  [101;42mY / N:[0m  
+REM IF /I "%choice%"=="Y" goto apply
+REM IF /I "%choice%"=="N" goto next
+REM echo.
+REM :apply
+REM reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WerSvc" /v "Start" /t REG_DWORD /d "4" /f
+REM reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WpnService" /v "Start" /t REG_DWORD /d "4" /f
+REM reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WpnUserService" /v "Start" /t REG_DWORD /d "4" /f
+REM echo.
+REM echo. [101;41mWindows Error Reporting and Push Notifications have been disabled.[0m
 
-goto :next
+REM goto :next
 
 :next
 echo. [101;41mDisable and uninstall OneDrive?:[0m
@@ -476,7 +1073,7 @@ echo. Press "N" to skip.
 echo.
 SET /P choice=  [101;42mY / N:[0m  
 IF /I "%choice%"=="Y" goto apply
-IF /I "%choice%"=="N" goto next
+IF /I "%choice%"=="N" goto Menu
 echo.
 :apply
 echo This may take a moment, please be patient.
@@ -515,43 +1112,61 @@ reg add "HKCR\CLSID\{018D5C66-4533-4308-9B53-224DE2ED1FE6}" /v "System.IsPinnedT
 reg add "HKCR\Wow6432Node\{018D5C66-4533-4308-9B53-224DE2ED1FE6}" /v "System.IsPinnedToNameSpaceTree" /t REG_DWORD /d "0" /f
 echo. [101;41mOnedrive has been uninstalled and disabled.[0m
 
-:next
-echo. [101;41mDisable Windows Store? [Do not apply if you are not on a local microsoft account] :[0m
-echo. Press "Y" to apply.
-echo. Press "N" to skip.
-echo.
-SET /P choice=  [101;42mY / N:[0m  
-IF /I "%choice%"=="Y" goto apply
-IF /I "%choice%"=="N" goto Menu
-echo.
-:apply
-reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\iphlpsvc" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\ClipSVC" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\AppXSvc" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\LicenseManager" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\NgcSvc" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\NgcCtnrSvc" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\wlidsvc" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\TokenBroker" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WalletService" /v "Start" /t REG_DWORD /d "4" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsStore" /v "AutoDownload" /t REG_DWORD /d "2" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsStore" /v "DisableStoreApps" /t REG_DWORD /d "1" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsStore" /v "RemoveWindowsStore" /t REG_DWORD /d "1" /f
-reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization" /v "SystemSettingsDownloadMode" /t REG_DWORD /d "0" /f 
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config" /v "DODownloadMode" /t REG_DWORD /d "0" /f
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization" /v "DODownloadMode" /t REG_DWORD /d "0" /f 
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization" /v "SystemSettingsDownloadMode" /t REG_DWORD /d "0" /f 
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\DoSvc" /v "Start" /t REG_DWORD /d "4" /f
-echo. [101;41mWindows Store has been disabled.[0m
+REM :next
+REM echo. [101;41mDisable Windows Store? [Do not apply if you are not on a local microsoft account] :[0m
+REM echo. Press "Y" to apply.
+REM echo. Press "N" to skip.
+REM echo.
+REM SET /P choice=  [101;42mY / N:[0m  
+REM IF /I "%choice%"=="Y" goto apply
+REM IF /I "%choice%"=="N" goto Menu
+REM echo.
+REM :apply
+REM reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\iphlpsvc" /v "Start" /t REG_DWORD /d "4" /f
+REM reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\ClipSVC" /v "Start" /t REG_DWORD /d "4" /f
+REM reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\AppXSvc" /v "Start" /t REG_DWORD /d "4" /f
+REM reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\LicenseManager" /v "Start" /t REG_DWORD /d "4" /f
+REM reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\NgcSvc" /v "Start" /t REG_DWORD /d "4" /f
+REM reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\NgcCtnrSvc" /v "Start" /t REG_DWORD /d "4" /f
+REM reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\wlidsvc" /v "Start" /t REG_DWORD /d "4" /f
+REM reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\TokenBroker" /v "Start" /t REG_DWORD /d "4" /f
+REM reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\WalletService" /v "Start" /t REG_DWORD /d "4" /f
+REM reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsStore" /v "AutoDownload" /t REG_DWORD /d "2" /f
+REM reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsStore" /v "DisableStoreApps" /t REG_DWORD /d "1" /f
+REM reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsStore" /v "RemoveWindowsStore" /t REG_DWORD /d "1" /f
+REM reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization" /v "SystemSettingsDownloadMode" /t REG_DWORD /d "0" /f 
+REM reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config" /v "DODownloadMode" /t REG_DWORD /d "0" /f
+REM reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization" /v "DODownloadMode" /t REG_DWORD /d "0" /f 
+REM reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization" /v "SystemSettingsDownloadMode" /t REG_DWORD /d "0" /f 
+REM reg add "HKLM\SYSTEM\CurrentControlSet\Services\DoSvc" /v "Start" /t REG_DWORD /d "4" /f
+REM echo. [101;41mWindows Store has been disabled.[0m
 
-goto :Menu
+REM goto :Menu
 
 pause
 exit
 
 :PowerTweaks
 cls
-call :Logo
+REM call :Logo
+set c=[31m
+set t=[0m
+set w=[97m
+set y=[0m
+set u=[4m
+set q=[0m
+echo[
+echo[
+echo									██████╗  ██████╗ ██╗    ██╗███████╗██████╗     ████████╗██╗    ██╗███████╗ █████╗ ██╗  ██╗███████╗
+echo									██╔══██╗██╔═══██╗██║    ██║██╔════╝██╔══██╗    ╚══██╔══╝██║    ██║██╔════╝██╔══██╗██║ ██╔╝██╔════╝
+echo									██████╔╝██║   ██║██║ █╗ ██║█████╗  ██████╔╝       ██║   ██║ █╗ ██║█████╗  ███████║█████╔╝ ███████╗
+echo									██╔═══╝ ██║   ██║██║███╗██║██╔══╝  ██╔══██╗       ██║   ██║███╗██║██╔══╝  ██╔══██║██╔═██╗ ╚════██║
+echo									██║     ╚██████╔╝╚███╔███╔╝███████╗██║  ██║       ██║   ╚███╔███╔╝███████╗██║  ██║██║  ██╗███████║
+echo									╚═╝      ╚═════╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝       ╚═╝    ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝                                                                                                 
+echo[
+echo[                                                                                                                  
+echo[
+echo.
 echo.
 echo		            		       				     %w%[%y% %c%%u%1%q%%t% %w%]%y% %c%Power Basic%t%                 %w%[%y% %c%%u%2%q% %t%%w%]%y% %c%Power Advanced%t%                  %w%[%y% %c%%u%3%q% %t%%w%]%y% %c%Home%t%
 echo %w%Enter Your Choice Here:%t% 
@@ -565,6 +1180,166 @@ if '%choice%'=='3' goto Menu
 goto DefaultChoice
 
 :PowerBasic
+
+:next
+echo. [101;41mWould you like to configure and disable offloads?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "%%n" /v "IPChecksumOffloadIPv4" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "LsoV1IPv4" /t REG_SZ /d "0" /f  
+Reg.exe add "%%n" /v "LsoV2IPv4" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "LsoV2IPv6" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "PMARPOffload" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "PMNSOffload" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "TCPChecksumOffloadIPv4" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "TCPChecksumOffloadIPv6" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "UDPChecksumOffloadIPv6" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "UDPChecksumOffloadIPv4" /t REG_SZ /d "0" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to configure buffer sizes?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "%%n" /v "TransmitBuffers" /t REG_SZ /d "2048" /f 
+Reg.exe add "%%n" /v "ReceiveBuffers" /t REG_SZ /d "1024" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to disable power gating?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "%%n" /v "EnabledynamicPowerGating" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "EnableConnectedPowerGating" /t REG_SZ /d "0" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to disable power saving modes and power management?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "%%n" /v "AutoPowerSaveModeEnabled" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "DisabledelayedPowerUp" /t REG_SZ /d "2" /f 
+Reg.exe add "%%n" /v "AutoDisablingGigabit" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "EnableGreenEthernet" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "EnableSavePowerNow" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "EnablePowerManagement" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "NicAutoPowerSaver" /t REG_SZ /d "2" /f
+Reg.exe add "%%n" /v "PowerDownPll" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "PowerSavingMode" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "ReduceSpeedOnPowerDown" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "S5NicKeepOverrideMacAddrV2" /t REG_SZ /d "0" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to disable setting synchronization?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync" /v "SyncPolicy" /t Reg_DWORD /d "5" /f
+Reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Accessibility" /v "Enabled" /t Reg_DWORD /d "0" /f
+Reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Groups\AppSync" /v "Enabled" /t Reg_DWORD /d "0" /f
+Reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Groups\BrowserSettings" /v "Enabled" /t Reg_DWORD /d "0" /f
+Reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Credentials" /v "Enabled" /t Reg_DWORD /d ""0"" /f
+Reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Groups\DesktopTheme" /v "Enabled" /t Reg_DWORD /d "0" /f
+Reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Language" /v "Enabled" /t Reg_DWORD /d "0" /f
+Reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Groups\PackageState" /v "Enabled" /t Reg_DWORD /d "0" /f
+Reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Personalization" /v "Enabled" /t Reg_DWORD /d "0" /f
+Reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Groups\StartLayout" /v "Enabled" /t Reg_DWORD /d "0" /f
+Reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Windows" /v "Enabled" /t Reg_DWORD /d "0" /f
+Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableSettingSync" /t Reg_DWORD /d "2" /f
+Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableSettingSyncUserOverride" /t Reg_DWORD /d "1" /f
+Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableAppSyncSettingSync" /t Reg_DWORD /d "2" /f
+Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableAppSyncSettingSyncUserOverride" /t Reg_DWORD /d "1" /f
+Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableApplicationSettingSync" /t Reg_DWORD /d "2" /f
+Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableApplicationSettingSyncUserOverride" /t Reg_DWORD /d "1" /f
+Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableCredentialsSettingSync" /t Reg_DWORD /d "2" /f
+Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableCredentialsSettingSyncUserOverride" /t Reg_DWORD /d "2" /f
+Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableDesktopThemeSettingSync" /t Reg_DWORD /d "2" /f
+Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableDesktopThemeSettingSyncUserOverride" /t Reg_DWORD /d "2" /f
+Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisablePersonalizationSettingSync" /t Reg_DWORD /d "2" /f 
+Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisablePersonalizationSettingSyncUserOverride" /t Reg_DWORD /d "2" /f
+Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableStartLayoutSettingSync" /t Reg_DWORD /d "2" /f
+Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableStartLayoutSettingSyncUserOverride" /t Reg_DWORD /d "2" /f
+Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableSyncOnPaidNetwork" /t Reg_DWORD /d "2" /f
+Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableWebBrowserSettingSync" /t Reg_DWORD /d "2" /f
+Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableWebBrowserSettingSyncUserOverride" /t Reg_DWORD /d "2" /f
+Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableWindowsSettingSync" /t Reg_DWORD /d "2" /f
+Reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\SettingSync" /v "DisableWindowsSettingSyncUserOverride" /t Reg_DWORD /d "2" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to disable SSD power savings?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\SD\IdleState\1" /v "IdleExitEnergyMicroJoules" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\SD\IdleState\1" /v "IdleExitLatencyMs" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\SD\IdleState\1" /v "IdlePowerMw" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\SD\IdleState\1" /v "IdleTimeLengthMs" /t REG_DWORD /d "4294967295" /f 
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\SSD\IdleState\1" /v "IdleExitEnergyMicroJoules" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\SSD\IdleState\1" /v "IdleExitLatencyMs" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\SSD\IdleState\1" /v "IdlePowerMw" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\SSD\IdleState\1" /v "IdleTimeLengthMs" /t REG_DWORD /d "4294967295" /f 
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\SSD\IdleState\2" /v "IdleExitEnergyMicroJoules" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\SSD\IdleState\2" /v "IdleExitLatencyMs" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\SSD\IdleState\2" /v "IdlePowerMw" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\SSD\IdleState\2" /v "IdleTimeLengthMs" /t REG_DWORD /d "4294967295" /f 
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\SSD\IdleState\3" /v "IdleExitEnergyMicroJoules" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\SSD\IdleState\3" /v "IdleExitLatencyMs" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\SSD\IdleState\3" /v "IdlePowerMw" /t REG_DWORD /d "0" /f 
+Reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Power\EnergyEstimation\Storage\SSD\IdleState\3" /v "IdleTimeLengthMs" /t REG_DWORD /d "4294967295" /f
+goto :next
+
+:next
+echo. [101;41mWould you like to remove interrupt delays?[0m
+echo. Press "Y" to apply.
+echo. Press "N" to skip.
+echo.
+SET /P choice= [101;42mY / N:[0m
+IF /I "%choice%"=="Y" goto apply
+IF /I "%choice%"=="N" goto next
+echo.
+:apply
+Reg.exe add "%%n" /v "RxAbsIntDelay" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "TxIntDelay" /t REG_SZ /d "0" /f 
+Reg.exe add "%%n" /v "TxAbsIntDelay" /t REG_SZ /d "0" /f
+goto :next
+
 
 
 :next
@@ -713,7 +1488,24 @@ goto :Menu
 
 :NetworkTweaks
 cls
-call :Logo
+REM call :Logo
+set c=[31m
+set t=[0m
+set w=[97m
+set y=[0m
+set u=[4m
+set q=[0m
+echo[
+echo[
+echo									███╗   ██╗███████╗████████╗██╗    ██╗ ██████╗ ██████╗ ██╗  ██╗    ████████╗██╗    ██╗███████╗ █████╗ ██╗  ██╗███████╗
+echo									████╗  ██║██╔════╝╚══██╔══╝██║    ██║██╔═══██╗██╔══██╗██║ ██╔╝    ╚══██╔══╝██║    ██║██╔════╝██╔══██╗██║ ██╔╝██╔════╝
+echo									██╔██╗ ██║█████╗     ██║   ██║ █╗ ██║██║   ██║██████╔╝█████╔╝        ██║   ██║ █╗ ██║█████╗  ███████║█████╔╝ ███████╗
+echo									██║╚██╗██║██╔══╝     ██║   ██║███╗██║██║   ██║██╔══██╗██╔═██╗        ██║   ██║███╗██║██╔══╝  ██╔══██║██╔═██╗ ╚════██║
+echo									██║ ╚████║███████╗   ██║   ╚███╔███╔╝╚██████╔╝██║  ██║██║  ██╗       ██║   ╚███╔███╔╝███████╗██║  ██║██║  ██╗███████║
+echo									╚═╝  ╚═══╝╚══════╝   ╚═╝    ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝       ╚═╝    ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝                                                                                               
+echo[
+echo[                                                                                                                  
+echo[
 echo.
 echo		            		       				     %w%[%y% %c%%u%1%q%%t% %w%]%y% %c%Network Basic%t%                 %w%[%y% %c%%u%2%q% %t%%w%]%y% %c%Network Advanced%t%                  %w%[%y% %c%%u%3%q% %t%%w%]%y% %c%Home%t%
 echo %w%Enter Your Choice Here:%t% 
@@ -816,7 +1608,24 @@ goto :Menu
 
 :CleanTweaks
 cls
-call :Logo
+REM call :Logo
+set c=[31m
+set t=[0m
+set w=[97m
+set y=[0m
+set u=[4m
+set q=[0m
+echo[
+echo[	
+echo												 ██████╗██╗     ███████╗ █████╗ ███╗   ██╗
+echo												██╔════╝██║     ██╔════╝██╔══██╗████╗  ██║
+echo												██║     ██║     █████╗  ███████║██╔██╗ ██║
+echo												██║     ██║     ██╔══╝  ██╔══██║██║╚██╗██║
+echo												╚██████╗███████╗███████╗██║  ██║██║ ╚████║
+echo												╚═════╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝                                                                                       
+echo[
+echo[                                                                                                                  
+echo[
 echo.
 echo		            		       				     %w%[%y% %c%%u%1%q%%t% %w%]%y% %c%Clean Basic%t%                 %w%[%y% %c%%u%2%q% %t%%w%]%y% %c%Clean Advanced%t%                  %w%[%y% %c%%u%3%q% %t%%w%]%y% %c%Home%t%
 echo %w%Enter Your Choice Here:%t% 
@@ -862,7 +1671,24 @@ goto Menu
 
 :DebloatTweaks
 cls
-call :Logo
+REM call :Logo
+set c=[31m
+set t=[0m
+set w=[97m
+set y=[0m
+set u=[4m
+set q=[0m
+echo[
+echo[	
+echo												 ██████╗ ███████╗██████╗ ██╗      ██████╗  █████╗ ████████╗
+echo												 ██╔══██╗██╔════╝██╔══██╗██║     ██╔═══██╗██╔══██╗╚══██╔══╝
+echo												 ██║  ██║█████╗  ██████╔╝██║     ██║   ██║███████║   ██║   
+echo												 ██║  ██║██╔══╝  ██╔══██╗██║     ██║   ██║██╔══██║   ██║   
+echo												 ██████╔╝███████╗██████╔╝███████╗╚██████╔╝██║  ██║   ██║   
+echo												 ╚═════╝ ╚══════╝╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝                                                                                     
+echo[
+echo[                                                                                                                  
+echo[
 echo.
 echo		            		       				     %w%[%y% %c%%u%1%q%%t% %w%]%y% %c%Debloat Basic%t%                 %w%[%y% %c%%u%2%q% %t%%w%]%y% %c%Debloat Advanced%t%                  %w%[%y% %c%%u%3%q% %t%%w%]%y% %c%Home%t%
 echo %w%Enter Your Choice Here:%t% 
@@ -1041,7 +1867,7 @@ goto Menu
 :Logo
 set c=[31m
 set t=[0m
-set w=[31m
+set w=[97m
 set y=[0m
 set u=[4m
 set q=[0m
@@ -1052,6 +1878,10 @@ echo 			%w%██╔══██%t%╗%w%██╔══██%t%╗%w%██╔
 echo 			%w%██████%t%╔╝%w%██║  ██%t%║%w%██████%t%╔╝    %w%█████%t%╗  %w%██████%t%╔╝%w%█████%t%╗  %w%█████%t%╗         %w%██%t%║   %w%██║ █╗ ██%t%║%w%█████%t%╗  %w%███████%t%║%w%█████%t%╔╝ %w%██%t%║%w%██╔██╗ ██%t%║%w%██║  ███%t%╗    %w%██║   ██%t%║   %w%██%t%║   %w%██%t%║%w%██%t%║     %w%██%t%║   %w%██%t%║    ╚%w%████╔╝ 
 echo 			%w%██╔══██%t%╗%w%██║  ██%t%║%w%██%t%╔═══╝     %w%██%t%╔══╝  %w%██╔══██%t%╗%w%██%t%╔══╝  %w%██%t%╔══╝         %w%██%t%║   %w%██║███╗██%t%║%w%██%t%╔══╝  %w%██╔══██%t%║%w%██╔═██%t%╗ %w%██%t%║%w%██║╚██╗██%t%║%w%██║   ██%t%║    %w%██║   ██%t%║   %w%██%t%║   %w%██%t%║%w%██%t%║     %w%██%t%║   %w%██%t%║     ╚%w%██╔╝  
 echo 			%w%██║  ██%t%║%w%██████%t%╔╝%w%██%t%║         %w%██%t%║     %w%██║  ██%t%║%w%███████%t%╗%w%███████%t%╗       %w%██%t%║   ╚%w%███╔███%t%╔╝%w%███████%t%╗%w%██║  ██%t%║%w%██║  ██%t%╗%w%██%t%║%w%██║ ╚████%t%║╚%w%██████%t%╔╝    ╚%w%██████%t%╔╝   %w%██%t%║   %w%██%t%║%w%███████%t%╗%w%██%t%║   %w%██%t%║      %w%██║   
-echo 			╚═╝  %t%╚═╝╚═════╝ ╚═╝         ╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝       ╚═╝    ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝      ╚═════╝    ╚═╝   ╚═╝╚══════╝╚═╝   ╚═╝      ╚═╝                                                                                                                                                                                                                                                                                                                                           
+echo 			╚═╝  ╚═╝╚═%t%════╝ ╚═╝         ╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝       ╚═╝    ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝      ╚═════╝    ╚═╝   ╚═╝╚══════╝╚═╝   ╚═╝      ╚═╝                                                                                                                                                                                                                                                                                                                                           
 echo[																											         																      %w%Version: %Version%%t%
 echo[
+
+
+
+
