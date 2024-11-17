@@ -4,7 +4,7 @@ REM Django's Discord: https://discord.gg/H567BQCYzJ
 REM Django's GitHub (Drop A Follow!): https://github.com/DjangoTweaks
 
 REM Credits to- 
-REM Ancel, Zusier, OptiX, Melody, DaddyMadu
+REM Ancel, Zusier, OptiX, Melody, DaddyMadu, EXM 
 
 if not "%1" == "max" start /MAX cmd /c %0 max & exit/b
 
